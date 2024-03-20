@@ -33,31 +33,59 @@ function clearCanvas() {
 }
 
 function drawSnake() {
-    snake.forEach((segment, index) => {
-      ctx.fillStyle = index === 0 ? "#333" : "#666"; // Head color different from body
-      ctx.fillRect(segment.x * GRID_SIZE, segment.y * GRID_SIZE, GRID_SIZE, GRID_SIZE);
-      
-      // Add eyes and tongue to the head
-      if (index === 0) {
-        ctx.fillStyle = "white"; // Eyes
-        ctx.fillRect((segment.x + 0.1) * GRID_SIZE, (segment.y + 0.2) * GRID_SIZE, GRID_SIZE / 5, GRID_SIZE / 5);
-        ctx.fillRect((segment.x + 0.7) * GRID_SIZE, (segment.y + 0.2) * GRID_SIZE, GRID_SIZE / 5, GRID_SIZE / 5);
-        
-        ctx.fillStyle = "red"; // Tongue
-        ctx.fillRect((segment.x + 0.2) * GRID_SIZE, (segment.y + 0.9) * GRID_SIZE, GRID_SIZE * 0.6, GRID_SIZE / 10);
-      }
-  
-      // Make tail more snake-like
-    if (index === snake.length - 1) {
-        // Draw tail with a gradient effect
-        const tailGradient = ctx.createLinearGradient(segment.x * GRID_SIZE, segment.y * GRID_SIZE, (segment.x + 1) * GRID_SIZE, (segment.y + 1) * GRID_SIZE);
-        ctx.fillStyle = tailGradient;
-        ctx.fillRect(segment.x * GRID_SIZE, segment.y * GRID_SIZE, GRID_SIZE, GRID_SIZE);
-      }
-    });
-  }
+  snake.forEach((segment, index) => {
+    ctx.fillStyle = index === 0 ? "#333" : "#666"; // Head color different from body
+    ctx.fillRect(
+      segment.x * GRID_SIZE,
+      segment.y * GRID_SIZE,
+      GRID_SIZE,
+      GRID_SIZE
+    );
 
-  
+    // Add eyes and tongue to the head
+    if (index === 0) {
+      ctx.fillStyle = "white"; // Eyes
+      ctx.fillRect(
+        (segment.x + 0.1) * GRID_SIZE,
+        (segment.y + 0.2) * GRID_SIZE,
+        GRID_SIZE / 5,
+        GRID_SIZE / 5
+      );
+      ctx.fillRect(
+        (segment.x + 0.7) * GRID_SIZE,
+        (segment.y + 0.2) * GRID_SIZE,
+        GRID_SIZE / 5,
+        GRID_SIZE / 5
+      );
+
+      ctx.fillStyle = "red"; // Tongue
+      ctx.fillRect(
+        (segment.x + 0.2) * GRID_SIZE,
+        (segment.y + 0.9) * GRID_SIZE,
+        GRID_SIZE * 0.6,
+        GRID_SIZE / 10
+      );
+    }
+
+    // Make tail more snake-like
+    if (index === snake.length - 1) {
+      // Draw tail with a gradient effect
+      const tailGradient = ctx.createLinearGradient(
+        segment.x * GRID_SIZE,
+        segment.y * GRID_SIZE,
+        (segment.x + 1) * GRID_SIZE,
+        (segment.y + 1) * GRID_SIZE
+      );
+      ctx.fillStyle = tailGradient;
+      ctx.fillRect(
+        segment.x * GRID_SIZE,
+        segment.y * GRID_SIZE,
+        GRID_SIZE,
+        GRID_SIZE
+      );
+    }
+  });
+}
 
 function drawFood() {
   ctx.fillStyle = "red";
@@ -92,7 +120,11 @@ function generateFood() {
 
 function checkCollision() {
   // Check if snake hits itself
-  if (snake.slice(1).some((segment) => segment.x === snake[0].x && segment.y === snake[0].y)) {
+  if (
+    snake
+      .slice(1)
+      .some((segment) => segment.x === snake[0].x && segment.y === snake[0].y)
+  ) {
     gameOver();
   }
 
